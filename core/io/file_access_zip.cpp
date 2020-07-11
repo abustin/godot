@@ -46,7 +46,9 @@ static void *godot_open(void *data, const char *p_fname, int mode) {
 	}
 
 	FileAccess *f = (FileAccess *)data;
-	f->open(p_fname, FileAccess::READ);
+	if (!f->is_open()) {
+		f->open(p_fname, FileAccess::READ);
+	}
 
 	return f->is_open() ? data : NULL;
 }
